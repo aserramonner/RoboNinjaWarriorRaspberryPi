@@ -16,6 +16,7 @@ wpa_passphrase $SSID $PSK >> /etc/wpa_supplicant/wpa_supplicant.conf
 
 # make sure i2c is configured
 echo "i2c-dev" >> /etc/modules
+echo "cdc_acm" >> /etc/modules
 echo "dtparam=i2c_arm=on" >> /boot/config.txt
 
 # install python libraries that are no longer available via standard installation methods

@@ -40,7 +40,7 @@ except NameError:
 def connect_to_serial():
     global ser
     # connect to serial port
-    possible_ports = ['/dev/ttyUSB0','/dev/ttyUSB1']
+    possible_ports = ['/dev/ttyACM0']
     ser = serial.Serial()
     ser.baudrate = 115200
     ser.parity   = 'N'

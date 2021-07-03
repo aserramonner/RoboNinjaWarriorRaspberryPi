@@ -20,12 +20,13 @@ class NeatoSensorPacket(object):
     def parse_packet(self, raw_packet):
         neato_outputs = raw_packet.split(chr(26))
 	self.response_dict = {resp[:resp.find('\r')]: resp for resp in neato_outputs}
-        ranges, intensites = self.getScanRanges()
+        ranges, intensities = self.getScanRanges()
         self.getMotors()
         self.getDigitalSensors()
         self.getAccel()
 	packet_dict = {}
         packet_dict['ldsscanranges'] = (len(ranges), struct.pack('<%sH' % len(ranges), *[int(r*1000) for r in ranges]))
+        packet_dict['ldsscanintensities'] = (len(intensities), struct.pack('<%sH' % len(intensities), *[int(r) for r in intensities]))
         packet_dict['motors'] = struct.pack('<2d', self.state['LeftWheel_PositionInMM'], self.state['RightWheel_PositionInMM'])
 	packet_dict['digitalsensors'] = struct.pack('<4d', self.state['LFRONTBIT'],self.state['LSIDEBIT'],self.state['RFRONTBIT'],self.state['RSIDEBIT'])
 	packet_dict['accel'] = struct.pack('<6f',
